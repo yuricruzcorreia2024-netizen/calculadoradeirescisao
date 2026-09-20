@@ -252,20 +252,25 @@
   }
   .total-band .lbl { font-family:'IBM Plex Mono', monospace; font-size: 12px; text-transform:uppercase; letter-spacing:0.06em; color: var(--ink-soft); z-index:1; }
   .total-band .lbl b { display:block; font-family:'Space Grotesk'; font-size: 15px; text-transform:none; letter-spacing:0; color: var(--ink); margin-top:3px; font-weight:600; }
-  .stamp-wrap { position:relative; width: 108px; height: 108px; flex: none; z-index:1; }
+  .stamp-wrap { position:relative; display:flex; align-items:center; gap:12px; z-index:1; }
+  .stamp-dot { position:relative; width: 34px; height: 34px; flex: none; }
   .stamp-ring {
     position:absolute; inset:0; border-radius:50%;
     border: 2px dashed var(--accent);
     animation: spin 18s linear infinite;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
-  .stamp-center {
-    position:absolute; inset:8px; border-radius:50%;
-    background: var(--accent); color: var(--accent-ink);
-    display:flex; align-items:center; justify-content:center; text-align:center;
-    font-family:'IBM Plex Mono', monospace; font-weight:700; font-size: 12.5px; line-height:1.2; padding: 4px;
+  .stamp-ring::after {
+    content:""; position:absolute; inset: 8px; border-radius:50%; background: var(--accent);
   }
-  .stamp-center .amt { display:block; font-size: 13.5px; margin-top:2px; letter-spacing:-0.01em; }
+  .stamp-figure { display:flex; flex-direction:column; align-items:flex-end; text-align:right; }
+  .stamp-figure .cap { font-family:'IBM Plex Mono', monospace; font-size: 11px; font-weight:700; letter-spacing:0.08em; color: var(--accent); }
+  .stamp-figure .amt {
+    font-family:'IBM Plex Mono', monospace; font-weight:700; color: var(--ink);
+    font-size: clamp(20px, 4.4vw, 30px); letter-spacing:-0.01em; line-height:1.15;
+    word-break: break-word; max-width: 46vw;
+  }
+  @media (max-width: 480px) { .total-band { flex-direction: column; align-items: flex-start; } .stamp-figure { align-items:flex-start; text-align:left; } }
 
   .fgts-note {
     margin: 14px 24px 0; padding: 12px 14px; background: var(--cyan-soft);
@@ -644,8 +649,8 @@
       <div class="total-band">
         <div class="lbl">Total líquido estimado<b>já com INSS e IRRF descontados</b></div>
         <div class="stamp-wrap">
-          <div class="stamp-ring"></div>
-          <div class="stamp-center"><span>LÍQUIDO</span><span class="amt" id="totalAmt">${fmt(0)}</span></div>
+          <div class="stamp-dot"><div class="stamp-ring"></div></div>
+          <div class="stamp-figure"><span class="cap">LÍQUIDO</span><span class="amt" id="totalAmt">${fmt(0)}</span></div>
         </div>
       </div>
       <div class="fgts-note"><b>FGTS</b><br>${saqueFgtsInfo}</div>
