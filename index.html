@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Calculadora de Rescisão CLT 2026 — quanto você tem a receber</title>
 <meta name="description" content="Calcule grátis o valor da sua rescisão trabalhista em 2026: saldo de salário, aviso prévio, 13º proporcional, férias, multa do FGTS, INSS e IRRF.">
+<!-- Search Console: troque o content abaixo pelo código que o Google te der -->
+<meta name="google-site-verification" content="COLE_AQUI_O_CODIGO_DO_SEARCH_CONSOLE">
+<!-- AdSense: troque ca-pub-XXXXXXXXXXXXXXXX pelo seu ID assim que tiver o código de verificação -->
+<meta name="google-adsense-account" content="ca-pub-XXXXXXXXXXXXXXXX">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -288,13 +292,6 @@
   .empty-state svg { width:32px; height:32px; margin-bottom:14px; opacity:0.5; }
   .empty-state p { font-size:14px; max-width:32ch; margin:0 auto; line-height:1.5; }
 
-  .ad-slot {
-    max-width: 1060px; margin: 30px auto 0; padding: 14px;
-    border: 1px dashed var(--line-strong); border-radius: var(--radius);
-    text-align:center; font-family:'IBM Plex Mono', monospace; font-size:11px; color: var(--ink-soft);
-    letter-spacing:0.04em; text-transform:uppercase;
-  }
-
   footer.page-footer {
     max-width: 1060px; margin: 36px auto 0; padding-top: 18px; border-top: 1px solid var(--line);
     font-size: 12px; color: var(--ink-soft); display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
@@ -376,8 +373,6 @@
       <!-- filled by JS -->
     </div>
   </div>
-
-  <div class="ad-slot" id="adSlot1">espaço reservado para anúncio</div>
 
   <footer class="page-footer">
     <span>Cálculo estimado com base na legislação trabalhista e nas tabelas de INSS e IRRF vigentes a partir de janeiro de 2026.</span>
@@ -665,6 +660,14 @@
   Object.values(inputs).forEach(el => el.addEventListener('input', calcular));
   calcular();
 })();
+</script>
+
+<!-- Adcash: autoTag injeta os formatos de anúncio automaticamente, não precisa de div manual -->
+<script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
+<script type="text/javascript">
+    aclib.runAutoTag({
+        zoneId: 'm6z72pgsuz',
+    });
 </script>
 </body>
 </html>
