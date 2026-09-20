@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Calculadora de Rescisão CLT 2026 — quanto você tem a receber</title>
+<meta name="description" content="Calcule grátis o valor da sua rescisão trabalhista em 2026: saldo de salário, aviso prévio, 13º proporcional, férias, multa do FGTS, INSS e IRRF.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F3F6F8;
+    --surface: #FFFFFF;
+    --surface-2: #EAF0F4;
+    --ink: #0D1B2A;
+    --ink-soft: #4C6178;
+    --line: rgba(13,27,42,0.14);
+    --line-strong: rgba(13,27,42,0.32);
+    --accent: #E85A25;
+    --accent-ink: #FFFFFF;
+    --accent-soft: rgba(232,90,37,0.10);
+    --cyan: #0E7C9E;
+    --cyan-soft: rgba(14,124,158,0.10);
+    --bad: #C1432E;
+    --bad-soft: rgba(193,67,46,0.08);
+    --radius: 2px;
+    --shadow: 0 1px 0 rgba(13,27,42,0.04), 0 10px 30px rgba(13,27,42,0.08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0C1826;
+      --surface: #12233A;
+      --surface-2: #0F1E31;
+      --ink: #EAF2F8;
+      --ink-soft: #8FA6BE;
+      --line: rgba(234,242,248,0.13);
+      --line-strong: rgba(234,242,248,0.28);
+      --accent: #FF7A45;
+      --accent-ink: #0C1826;
+      --accent-soft: rgba(255,122,69,0.15);
+      --cyan: #5CC8E0;
+      --cyan-soft: rgba(92,200,224,0.12);
+      --bad: #FF9077;
+      --bad-soft: rgba(255,144,119,0.12);
+      --shadow: 0 1px 0 rgba(0,0,0,0.3), 0 10px 30px rgba(0,0,0,0.4);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0C1826;
+    --surface: #12233A;
+    --surface-2: #0F1E31;
+    --ink: #EAF2F8;
+    --ink-soft: #8FA6BE;
+    --line: rgba(234,242,248,0.13);
+    --line-strong: rgba(234,242,248,0.28);
+    --accent: #FF7A45;
+    --accent-ink: #0C1826;
+    --accent-soft: rgba(255,122,69,0.15);
+    --cyan: #5CC8E0;
+    --cyan-soft: rgba(92,200,224,0.12);
+    --bad: #FF9077;
+    --bad-soft: rgba(255,144,119,0.12);
+    --shadow: 0 1px 0 rgba(0,0,0,0.3), 0 10px 30px rgba(0,0,0,0.4);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  }
+  html, body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 28px 28px;
+    background-position: -1px -1px;
+  }
+  .mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; }
+
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 36px 20px 60px; }
+
+  header.top {
+    text-align: left; margin-bottom: 26px;
+    animation: rise .5s cubic-bezier(.2,.8,.2,1) both;
+  }
+  @keyframes rise { from { opacity:0; transform: translateY(10px);} to { opacity:1; transform:none; } }
+
+  .eyebrow-row {
+    display:flex; align-items:center; gap:8px; color: var(--cyan);
+    font-family:'IBM Plex Mono', monospace; font-size: 12px; margin-bottom: 12px;
+    letter-spacing: 0.02em;
+  }
+  .eyebrow-row .dot { width:6px; height:6px; border-radius:50%; background: var(--accent); flex:none;
+    box-shadow: 0 0 0 0 var(--accent-soft); animation: pulse 2.2s ease-in-out infinite; }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 var(--accent-soft); }
+    70% { box-shadow: 0 0 0 6px transparent; }
+    100% { box-shadow: 0 0 0 0 transparent; }
+  }
+
+  h1 {
+    font-weight: 700;
+    font-size: clamp(28px, 4.5vw, 42px);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin: 0 0 10px;
+    max-width: 18ch;
+  }
+  .sub {
+    color: var(--ink-soft);
+    font-size: 16px;
+    max-width: 60ch;
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0,1fr) minmax(0,1.05fr);
+    gap: 22px;
+    align-items: start;
+  }
+  @media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
+
+  .card {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  .card::before, .card::after {
+    content: ""; position:absolute; width:14px; height:14px; pointer-events:none;
+    border-color: var(--line-strong); opacity: 0.9;
+  }
+  .card::before { top:-1px; left:-1px; border-top:2px solid; border-left:2px solid; }
+  .card::after { bottom:-1px; right:-1px; border-bottom:2px solid; border-right:2px solid; }
+
+  form.card { padding: 26px 24px; }
+  fieldset { border: 0; margin: 0; padding: 0; }
+  legend { display:none; }
+
+  .field { margin-bottom: 18px; }
+  .field:last-child { margin-bottom: 0; }
+  label {
+    display:flex; align-items:baseline; gap:8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--ink-soft); margin-bottom: 7px;
+  }
+  .hint { font-size: 12.5px; color: var(--ink-soft); margin-top: 6px; line-height:1.4; }
+
+  input[type="number"], input[type="date"], select {
+    width: 100%;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 15px;
+    padding: 11px 12px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+    background: var(--surface-2);
+    color: var(--ink);
+    appearance: none;
+    transition: border-color .15s ease, background .15s ease;
+  }
+  input:hover, select:hover { border-color: var(--cyan); }
+  input:focus-visible, select:focus-visible, .row-check:focus-within {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+    border-color: var(--accent);
+  }
+  select { background-image: linear-gradient(45deg, transparent 50%, var(--ink-soft) 50%), linear-gradient(135deg, var(--ink-soft) 50%, transparent 50%); background-position: calc(100% - 18px) 50%, calc(100% - 13px) 50%; background-size: 5px 5px, 5px 5px; background-repeat: no-repeat; padding-right: 32px; }
+
+  .two-col { display:grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 420px) { .two-col { grid-template-columns: 1fr; } }
+
+  .row-check {
+    display:flex; align-items:flex-start; gap:10px;
+    padding: 12px; border: 1px dashed var(--line-strong); border-radius: var(--radius);
+    background: var(--surface-2);
+  }
+  .row-check input { width: 17px; height: 17px; margin-top: 2px; accent-color: var(--accent); }
+  .row-check .txt { font-size: 13.5px; color: var(--ink); line-height:1.4; }
+  .row-check .txt b { display:block; font-family:'IBM Plex Mono', monospace; font-size: 12px; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:3px; color: var(--ink-soft); }
+
+  details.advanced { margin-top: 18px; border-top: 1px solid var(--line); padding-top: 14px; }
+  details.advanced summary {
+    cursor:pointer; font-family:'IBM Plex Mono', monospace; font-size: 11.5px; font-weight:600;
+    text-transform: uppercase; letter-spacing:0.06em; color: var(--cyan); list-style: none;
+  }
+  details.advanced summary::-webkit-details-marker { display:none; }
+  details.advanced summary::before { content: "[+] "; }
+  details.advanced[open] summary::before { content: "[–] "; }
+  details.advanced .field { margin-top: 14px; }
+
+  /* Ledger / results panel */
+  .ledger { padding: 0; overflow: hidden; }
+  .ledger-head {
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid var(--line);
+    display:flex; justify-content:space-between; align-items:baseline; gap:12px; flex-wrap:wrap;
+  }
+  .ledger-head h2 { font-size: 18px; margin:0; font-weight:700; letter-spacing:-0.005em; }
+  .ledger-head .tipo-tag {
+    font-family:'IBM Plex Mono', monospace; font-size: 11px; font-weight:600; color: var(--cyan);
+    background: var(--cyan-soft); border: 1px solid var(--cyan); padding: 4px 8px; border-radius: var(--radius);
+    text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .ledger-body { padding: 4px 24px; }
+  .section-label {
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--ink-soft); margin: 18px 0 6px; font-weight: 600;
+  }
+  .line {
+    display:flex; justify-content:space-between; gap: 12px;
+    padding: 9px 0;
+    border-bottom: 1px dashed var(--line);
+    font-size: 14.5px;
+    transition: background .15s ease;
+  }
+  .line:last-child { border-bottom: none; }
+  .line .desc { color: var(--ink); }
+  .line .desc small { display:block; color: var(--ink-soft); font-family:'IBM Plex Mono', monospace; font-size: 11.5px; margin-top:2px; }
+  .line .val { font-family:'IBM Plex Mono', monospace; font-variant-numeric: tabular-nums; font-weight: 600; white-space:nowrap; }
+  .line.discount .val { color: var(--bad); }
+  .line.discount .val::before { content: "− "; }
+
+  .total-band {
+    margin: 18px 24px 0;
+    padding: 20px;
+    background: var(--surface-2);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+    display:flex; justify-content:space-between; align-items:center; gap: 16px; flex-wrap:wrap;
+    position: relative;
+    overflow: hidden;
+  }
+  .total-band::before {
+    content:""; position:absolute; inset: -1px; pointer-events:none;
+    background: repeating-linear-gradient(135deg, var(--accent-soft) 0 2px, transparent 2px 14px);
+    opacity: .5;
+  }
+  .total-band .lbl { font-family:'IBM Plex Mono', monospace; font-size: 12px; text-transform:uppercase; letter-spacing:0.06em; color: var(--ink-soft); z-index:1; }
+  .total-band .lbl b { display:block; font-family:'Space Grotesk'; font-size: 15px; text-transform:none; letter-spacing:0; color: var(--ink); margin-top:3px; font-weight:600; }
+  .stamp-wrap { position:relative; width: 108px; height: 108px; flex: none; z-index:1; }
+  .stamp-ring {
+    position:absolute; inset:0; border-radius:50%;
+    border: 2px dashed var(--accent);
+    animation: spin 18s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .stamp-center {
+    position:absolute; inset:8px; border-radius:50%;
+    background: var(--accent); color: var(--accent-ink);
+    display:flex; align-items:center; justify-content:center; text-align:center;
+    font-family:'IBM Plex Mono', monospace; font-weight:700; font-size: 12.5px; line-height:1.2; padding: 4px;
+  }
+  .stamp-center .amt { display:block; font-size: 13.5px; margin-top:2px; letter-spacing:-0.01em; }
+
+  .fgts-note {
+    margin: 14px 24px 0; padding: 12px 14px; background: var(--cyan-soft);
+    border-left: 2px solid var(--cyan);
+    border-radius: var(--radius); font-size: 13px; color: var(--ink); line-height:1.5;
+  }
+  .fgts-note b { color: var(--cyan); font-family:'IBM Plex Mono', monospace; text-transform:uppercase; font-size:11.5px; letter-spacing:0.04em; }
+
+  .disclaimer {
+    margin: 20px 24px 24px; padding-top: 16px; border-top:1px solid var(--line);
+    font-size: 12px; color: var(--ink-soft); line-height:1.6;
+  }
+
+  .empty-state { padding: 52px 24px; text-align:center; color: var(--ink-soft); }
+  .empty-state svg { width:32px; height:32px; margin-bottom:14px; opacity:0.5; }
+  .empty-state p { font-size:14px; max-width:32ch; margin:0 auto; line-height:1.5; }
+
+  .ad-slot {
+    max-width: 1060px; margin: 30px auto 0; padding: 14px;
+    border: 1px dashed var(--line-strong); border-radius: var(--radius);
+    text-align:center; font-family:'IBM Plex Mono', monospace; font-size:11px; color: var(--ink-soft);
+    letter-spacing:0.04em; text-transform:uppercase;
+  }
+
+  footer.page-footer {
+    max-width: 1060px; margin: 36px auto 0; padding-top: 18px; border-top: 1px solid var(--line);
+    font-size: 12px; color: var(--ink-soft); display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
+  }
+
+  ::selection { background: var(--accent-soft); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="eyebrow-row">
+      <span class="dot"></span>
+      <span>CALCULADORA TRABALHISTA · TABELAS 2026</span>
+    </div>
+    <h1>Quanto você tem a receber na rescisão?</h1>
+    <p class="sub">Preencha os dados do seu contrato e veja a estimativa das verbas rescisórias — saldo de salário, aviso prévio, 13º, férias e multa do FGTS — já com os descontos de INSS e IRRF vigentes em 2026.</p>
+  </header>
+
+  <div class="grid">
+    <form class="card" id="form" autocomplete="off">
+      <fieldset>
+        <legend>Dados da rescisão</legend>
+
+        <div class="field">
+          <label for="salario">Salário bruto mensal</label>
+          <input type="number" id="salario" min="0" step="0.01" placeholder="Ex: 2800,00" inputmode="decimal" value="2800">
+        </div>
+
+        <div class="two-col">
+          <div class="field">
+            <label for="admissao">Admissão</label>
+            <input type="date" id="admissao" value="2023-03-10">
+          </div>
+          <div class="field">
+            <label for="demissao">Saída</label>
+            <input type="date" id="demissao" value="2026-09-18">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="tipo">Tipo de rescisão</label>
+          <select id="tipo">
+            <option value="sem_justa_causa">Demissão sem justa causa (empresa demitiu)</option>
+            <option value="pedido">Pedido de demissão (eu pedi)</option>
+            <option value="acordo">Acordo entre as partes</option>
+            <option value="justa_causa">Demissão por justa causa</option>
+          </select>
+          <div class="hint" id="tipoHint"></div>
+        </div>
+
+        <div class="field">
+          <div class="row-check">
+            <input type="checkbox" id="feriasVencidas">
+            <div class="txt">
+              <b>Férias vencidas</b>
+              Marque se já completou um período de 12 meses de férias sem ter tirado ou sido pago por elas.
+            </div>
+          </div>
+        </div>
+
+        <details class="advanced">
+          <summary>Ajustar FGTS e dependentes</summary>
+          <div class="field">
+            <label for="fgtsSaldo">Saldo aprox. do FGTS (R$)</label>
+            <input type="number" id="fgtsSaldo" min="0" step="0.01" placeholder="Em branco = estimativa automática">
+            <div class="hint">Se não souber, estimamos com base no salário e no tempo de casa (8% ao mês).</div>
+          </div>
+          <div class="field">
+            <label for="dependentes">Dependentes no IR</label>
+            <input type="number" id="dependentes" min="0" step="1" value="0">
+          </div>
+        </details>
+      </fieldset>
+    </form>
+
+    <div class="card ledger" id="ledgerCard">
+      <!-- filled by JS -->
+    </div>
+  </div>
+
+  <div class="ad-slot" id="adSlot1">espaço reservado para anúncio</div>
+
+  <footer class="page-footer">
+    <span>Cálculo estimado com base na legislação trabalhista e nas tabelas de INSS e IRRF vigentes a partir de janeiro de 2026.</span>
+    <span>Não substitui o cálculo oficial do RH, contador ou sindicato.</span>
+  </footer>
+</div>
+
+<script>
+(function(){
+  const $ = (id) => document.getElementById(id);
+
+  const inputs = {
+    salario: $('salario'),
+    admissao: $('admissao'),
+    demissao: $('demissao'),
+    tipo: $('tipo'),
+    feriasVencidas: $('feriasVencidas'),
+    fgtsSaldo: $('fgtsSaldo'),
+    dependentes: $('dependentes'),
+  };
+
+  const tipoHints = {
+    sem_justa_causa: 'Você tem direito a todas as verbas, incluindo aviso prévio indenizado e multa de 40% do FGTS, além de poder sacar o FGTS e solicitar o seguro-desemprego.',
+    pedido: 'Sem aviso prévio indenizado e sem multa ou saque do FGTS. As demais verbas (saldo, férias e 13º) continuam sendo devidas.',
+    acordo: 'Modalidade do art. 484-A da CLT: aviso prévio e multa do FGTS pela metade, com direito a sacar 80% do saldo do FGTS. Sem direito a seguro-desemprego.',
+    justa_causa: 'Só há direito ao saldo de salário e a férias vencidas (se houver). Não há aviso prévio, 13º proporcional, férias proporcionais, multa ou saque do FGTS.'
+  };
+
+  function fmt(v){
+    return (v||0).toLocaleString('pt-BR', {style:'currency', currency:'BRL'});
+  }
+
+  function parseDate(str){
+    if(!str) return null;
+    const d = new Date(str + 'T00:00:00');
+    return isNaN(d.getTime()) ? null : d;
+  }
+
+  function addMonths(date, n){
+    const d = new Date(date);
+    d.setMonth(d.getMonth() + n);
+    return d;
+  }
+
+  function diffDays(a, b){
+    return Math.round((b - a) / 86400000);
+  }
+
+  function contarAvos(start, end){
+    if (end <= start) return 0;
+    let avos = 0;
+    let cursor = new Date(start);
+    while (true){
+      const next = addMonths(cursor, 1);
+      if (next <= end){
+        avos++;
+        cursor = next;
+      } else {
+        const resto = diffDays(cursor, end);
+        if (resto >= 15) avos++;
+        break;
+      }
+      if (avos >= 12) break;
+    }
+    return Math.min(avos, 12);
+  }
+
+  function inicioPeriodoAquisitivoAtual(admissao, demissao){
+    let cursor = new Date(admissao);
+    let next = addMonths(cursor, 12);
+    while (next <= demissao){
+      cursor = next;
+      next = addMonths(cursor, 12);
+    }
+    return cursor;
+  }
+
+  function anosCompletos(admissao, demissao){
+    let anos = demissao.getFullYear() - admissao.getFullYear();
+    const aniversario = new Date(admissao);
+    aniversario.setFullYear(admissao.getFullYear() + anos);
+    if (aniversario > demissao) anos--;
+    return Math.max(0, anos);
+  }
+
+  function mesesTrabalhadosTotal(admissao, demissao){
+    let meses = (demissao.getFullYear() - admissao.getFullYear()) * 12 + (demissao.getMonth() - admissao.getMonth());
+    if (demissao.getDate() < admissao.getDate()) meses--;
+    return Math.max(0, meses);
+  }
+
+  const faixasINSS = [
+    { limite: 1621.00, aliquota: 0.075 },
+    { limite: 2902.84, aliquota: 0.09 },
+    { limite: 4354.27, aliquota: 0.12 },
+    { limite: 8475.55, aliquota: 0.14 },
+  ];
+  function calcularINSS(valor){
+    if (valor <= 0) return 0;
+    const base = Math.min(valor, 8475.55);
+    let inss = 0, anterior = 0;
+    for (const f of faixasINSS){
+      if (base > anterior){
+        const parcela = Math.min(base, f.limite) - anterior;
+        inss += parcela * f.aliquota;
+        anterior = f.limite;
+      } else break;
+    }
+    return inss;
+  }
+
+  const faixasIRRF = [
+    { limite: 2428.80, aliquota: 0,     deducao: 0 },
+    { limite: 2826.65, aliquota: 0.075, deducao: 182.16 },
+    { limite: 3751.05, aliquota: 0.15,  deducao: 394.16 },
+    { limite: 4664.68, aliquota: 0.225, deducao: 675.49 },
+    { limite: Infinity,aliquota: 0.275, deducao: 908.73 },
+  ];
+  function calcularIRRF(baseBruta, dependentes){
+    const base = baseBruta - (dependentes||0) * 189.59;
+    if (base <= 0) return 0;
+    const faixa = faixasIRRF.find(f => base <= f.limite);
+    let imposto = base * faixa.aliquota - faixa.deducao;
+    if (imposto < 0) imposto = 0;
+    let reducao = 0;
+    if (base <= 5000) reducao = 312.89;
+    else if (base <= 7350) reducao = 978.62 - 0.133145 * base;
+    imposto = Math.max(0, imposto - Math.max(0, reducao));
+    return imposto;
+  }
+
+  let ultimoTotal = null;
+
+  function calcular(){
+    const salario = parseFloat(inputs.salario.value) || 0;
+    const admissao = parseDate(inputs.admissao.value);
+    const demissao = parseDate(inputs.demissao.value);
+    const tipo = inputs.tipo.value;
+    const temFeriasVencidas = inputs.feriasVencidas.checked;
+    const dependentes = parseInt(inputs.dependentes.value) || 0;
+    const fgtsInformado = parseFloat(inputs.fgtsSaldo.value) || 0;
+
+    inputs.tipo.nextElementSibling.textContent = tipoHints[tipo] || '';
+
+    if (!salario || !admissao || !demissao || demissao <= admissao){
+      renderEmpty();
+      ultimoTotal = null;
+      return;
+    }
+
+    const dia = demissao.getDate();
+    const saldoSalario = (salario / 30) * dia;
+
+    const justaCausa = tipo === 'justa_causa';
+    const semJustaCausa = tipo === 'sem_justa_causa';
+    const pedido = tipo === 'pedido';
+    const acordo = tipo === 'acordo';
+
+    const inicio13 = admissao.getFullYear() === demissao.getFullYear()
+      ? admissao
+      : new Date(demissao.getFullYear(), 0, 1);
+    const avos13 = justaCausa ? 0 : contarAvos(inicio13, demissao);
+    const decimoTerceiro = (salario / 12) * avos13;
+
+    const inicioPeriodoFerias = inicioPeriodoAquisitivoAtual(admissao, demissao);
+    const avosFerias = justaCausa ? 0 : contarAvos(inicioPeriodoFerias, demissao);
+    const feriasProporcionais = (salario / 12) * avosFerias;
+    const tercoFeriasProporcionais = feriasProporcionais / 3;
+
+    const feriasVencidas = temFeriasVencidas ? salario : 0;
+    const tercoFeriasVencidas = feriasVencidas / 3;
+
+    let diasAviso = 0, avisoPrevio = 0;
+    if (semJustaCausa || acordo){
+      const anos = anosCompletos(admissao, demissao);
+      diasAviso = Math.min(30 + 3 * anos, 90);
+      if (acordo) diasAviso = Math.round(diasAviso / 2);
+      avisoPrevio = (salario / 30) * diasAviso;
+    }
+
+    const meses = mesesTrabalhadosTotal(admissao, demissao);
+    const fgtsEstimado = fgtsInformado > 0 ? fgtsInformado : salario * 0.08 * meses;
+    let multaFgts = 0, saqueFgtsInfo = null;
+    if (semJustaCausa){
+      multaFgts = fgtsEstimado * 0.40;
+      saqueFgtsInfo = 'saque integral do saldo do FGTS liberado, além do seguro-desemprego (se elegível).';
+    } else if (acordo){
+      multaFgts = fgtsEstimado * 0.20;
+      saqueFgtsInfo = 'saque de até 80% do saldo do FGTS liberado; sem direito a seguro-desemprego.';
+    } else {
+      saqueFgtsInfo = 'sem saque do FGTS e sem seguro-desemprego nesta modalidade.';
+    }
+
+    const inssSaldo = calcularINSS(saldoSalario);
+    const inss13 = calcularINSS(decimoTerceiro);
+    const irrfSaldo = calcularIRRF(saldoSalario - inssSaldo, dependentes);
+    const irrf13 = calcularIRRF(decimoTerceiro - inss13, dependentes);
+
+    const verbas = [
+      { desc: 'Saldo de salário', sub: dia + ' dia(s) trabalhado(s) no mês', val: saldoSalario, show: true },
+      { desc: 'Aviso prévio indenizado', sub: diasAviso ? diasAviso + ' dias' : 'não devido nesta modalidade', val: avisoPrevio, show: semJustaCausa || acordo },
+      { desc: '13º salário proporcional', sub: avos13 + '/12 avos', val: decimoTerceiro, show: !justaCausa },
+      { desc: 'Férias proporcionais + 1/3', sub: avosFerias + '/12 avos', val: feriasProporcionais + tercoFeriasProporcionais, show: !justaCausa },
+      { desc: 'Férias vencidas + 1/3', sub: temFeriasVencidas ? 'período completo não gozado' : 'não informado', val: feriasVencidas + tercoFeriasVencidas, show: temFeriasVencidas },
+      { desc: 'Multa do FGTS', sub: (semJustaCausa ? '40%' : acordo ? '20%' : '0%') + ' sobre ' + fmt(fgtsEstimado) + ' de saldo estimado', val: multaFgts, show: semJustaCausa || acordo },
+    ];
+
+    const descontos = [
+      { desc: 'INSS sobre saldo de salário', val: inssSaldo, show: saldoSalario > 0 },
+      { desc: 'INSS sobre 13º proporcional', val: inss13, show: !justaCausa && decimoTerceiro > 0 },
+      { desc: 'IRRF sobre saldo de salário', val: irrfSaldo, show: saldoSalario > 0 },
+      { desc: 'IRRF sobre 13º proporcional', val: irrf13, show: !justaCausa && decimoTerceiro > 0 },
+    ];
+
+    const totalBruto = verbas.filter(v=>v.show).reduce((s,v)=>s+v.val,0);
+    const totalDescontos = descontos.filter(d=>d.show).reduce((s,d)=>s+d.val,0);
+    const totalLiquido = totalBruto - totalDescontos;
+
+    renderLedger({tipo, verbas, descontos, totalLiquido, saqueFgtsInfo});
+  }
+
+  const tipoLabels = {
+    sem_justa_causa: 'Sem justa causa',
+    pedido: 'Pedido de demissão',
+    acordo: 'Acordo mútuo',
+    justa_causa: 'Justa causa'
+  };
+
+  function renderEmpty(){
+    $('ledgerCard').innerHTML = `
+      <div class="empty-state">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20M2 12h20"/></svg>
+        <p>Preencha o salário e as duas datas para ver o cálculo da sua rescisão.</p>
+      </div>`;
+  }
+
+  function animateAmount(el, from, to){
+    const start = performance.now();
+    const dur = 450;
+    function step(now){
+      const t = Math.min(1, (now - start) / dur);
+      const eased = 1 - Math.pow(1 - t, 3);
+      const current = from + (to - from) * eased;
+      el.textContent = fmt(current);
+      if (t < 1) requestAnimationFrame(step);
+      else el.textContent = fmt(to);
+    }
+    requestAnimationFrame(step);
+  }
+
+  function renderLedger({tipo, verbas, descontos, totalLiquido, saqueFgtsInfo}){
+    const linhas = (arr, cls) => arr.filter(i=>i.show).map(i => `
+      <div class="line ${cls||''}">
+        <div class="desc">${i.desc}${i.sub ? `<small>${i.sub}</small>` : ''}</div>
+        <div class="val">${fmt(i.val)}</div>
+      </div>`).join('');
+
+    $('ledgerCard').innerHTML = `
+      <div class="ledger-head">
+        <h2>Resumo da rescisão</h2>
+        <span class="tipo-tag">${tipoLabels[tipo]}</span>
+      </div>
+      <div class="ledger-body">
+        <div class="section-label">Verbas a receber</div>
+        ${linhas(verbas)}
+        <div class="section-label">Descontos</div>
+        ${linhas(descontos, 'discount')}
+      </div>
+      <div class="total-band">
+        <div class="lbl">Total líquido estimado<b>já com INSS e IRRF descontados</b></div>
+        <div class="stamp-wrap">
+          <div class="stamp-ring"></div>
+          <div class="stamp-center"><span>LÍQUIDO</span><span class="amt" id="totalAmt">${fmt(0)}</span></div>
+        </div>
+      </div>
+      <div class="fgts-note"><b>FGTS</b><br>${saqueFgtsInfo}</div>
+      <div class="disclaimer">Valores estimados a partir da CLT e das tabelas de INSS e IRRF vigentes desde janeiro de 2026. Não considera casos particulares (rescisão indireta, contrato de experiência, adicional de insalubridade/periculosidade, convenção coletiva etc.). Confirme sempre com o RH, um contador ou o sindicato da categoria.</div>
+    `;
+
+    const el = $('totalAmt');
+    animateAmount(el, ultimoTotal === null ? totalLiquido : ultimoTotal, totalLiquido);
+    ultimoTotal = totalLiquido;
+  }
+
+  Object.values(inputs).forEach(el => el.addEventListener('input', calcular));
+  calcular();
+})();
+</script>
+</body>
+</html>
